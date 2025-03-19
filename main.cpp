@@ -89,25 +89,42 @@ void reversed(int n) {
 // int main() {reversed(123456);}
 
 // problem 10
-bool isPalindrome(int m) {
-    if (m<=9 && m >= 0){return true;}
-    else {
-        int i=0;
-        i = log10(m);
-        i = power(10,i);
-        if (m/i == m%10) {
-            int n = 0;
-            n = m/i;
-            cout << i;
-            m = m - n*i;
-            m = m/10;
-            cout << "Going " << m;
-            isPalindrome(m);
-        }
-        else {return false;}
-    }
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+bool isPalindromeHelper(const string& s, int l, int r) {
+    if (l >= r) return true;  // Base case: one or zero characters left
+    if (s[l] != s[r]) return false;  // Mismatch found
+    return isPalindromeHelper(s, l + 1, r - 1);  // Recursive step
 }
-int main() {
-    if (isPalindrome(121)){cout << "true";}
-    else {cout << "false";}
+
+bool isPalindrome(int n) {
+    string s = to_string(n);  // Convert number to string
+    return isPalindromeHelper(s, 0, s.size() - 1);
 }
+
+// int main() {
+//     cout << "121: " << isPalindrome(121) << endl;  // true
+//     cout << "123: " << isPalindrome(123) << endl;  // false
+//     return 0;
+// }
+
+// problem 11
+bool isPrime(int n, int divisor = 2) {
+    if (n < 2) return false;
+    if (divisor * divisor > n) return true;
+    if (n % divisor == 0) return false;
+    return isPrime(n, divisor + 1);
+}
+
+// int main() {
+//     cout << boolalpha;
+//     cout << "2: " << isPrime(2) << endl;
+//     cout << "17: " << isPrime(17) << endl;
+//     cout << "18: " << isPrime(18) << endl;
+//     return 0;
+// }
+
+// problem 12
